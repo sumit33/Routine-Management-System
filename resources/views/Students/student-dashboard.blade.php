@@ -77,10 +77,15 @@
             <div class="white-section nobg">
                 <div class="grad-section height-ctrl">
 
-
+                    <?php if($active_id) { ?>
                     <div class="col-sm-12">
+                        <p class="welcomeback">Welcome back CR</p>
+                    </div>
+                    <?php }else{ ?>
+                        <div class="col-sm-12">
                         <p class="welcomeback">Welcome back Student</p>
                     </div>
+                    <?php } ?>
                 </div>
                 <div class="col-sm-12">
 

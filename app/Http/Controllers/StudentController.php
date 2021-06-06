@@ -95,7 +95,8 @@ class StudentController extends Controller
         $id = Session::get('student_id');
         $abc = Student::find($id);
         $abc->courses()->sync($request->courses,false);
-        return Redirect('/student/dashboard');
+        //return view('Students.AllCourses');
+        return $this->allcourses($id);
     }
 
     public function deleteCourse($course_id)
@@ -121,7 +122,6 @@ class StudentController extends Controller
     {
         DB::table('requests')
             ->where('requests.class_id',$class_id)
-            ->where('requests.active_id',0)
             ->delete();
         $data = array();
         $data['class_id']=$class_id;

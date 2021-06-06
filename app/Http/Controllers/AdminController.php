@@ -37,13 +37,14 @@ class AdminController extends Controller
         return view('Admin.AdminDashboard');
     }
 
-    function changeRequests()
+    public function changeRequests()
     {
         $classes = DB::table('class')
                 ->join('course','class.course_id','=','course.course_id')
                 ->join('classroom','class.classroom_id','=','classroom.classroom_id')
                 ->join('requests','class.class_id','=','requests.class_id')
                 ->select('class.*','course.course_code','classroom.classroom_name','requests.*')
+                ->where('requests.active_id',0)
                 ->get();
         return view('Admin.ChangeRequests')->with('classes',$classes);
     }
@@ -108,5 +109,61 @@ class AdminController extends Controller
         ->where('course_id',$course_id)
         ->update($data);
         return Redirect::to('/admin/allcourse');
+    }
+
+    function acceptRequest($request_id)
+    {
+
+        $class = DB::table('class')
+                ->join('classroom','class.classroom_id','=','classroom.classroom_id')
+                ->join('requests','class.class_id','=','requests.class_id')   
+                ->where('requests.request_id',$request_id)
+                ->select('class.*','classroom.*','requests.*')
+                ->first();
+
+
+        $data = array();
+        if( $class->class_time != $class->req_class_time){
+            $data['active_id'] = 1;
+        }else{
+            $data['active_id'] = 2;
+        }
+        
+        DB::table('requests')
+            ->where('request_id',$request_id)
+            ->update($data);
+        $req_details = DB::table('requests')
+                        ->where('request_id',$request_id)
+                        ->first();
+        $data = array();
+        $data['class_time'] = $req_details->req_class_time;
+        $data['classroom_id'] = $req_details->req_classroom_id;
+        DB::table('class')
+            ->where('class_id',$req_details->class_id)
+            ->update($data);
+
+        return Redirect::to('/admin/changeRequests');
+    }
+
+    function rejectRequest($request_id)
+    {
+        $class = DB::table('class')
+                ->join('classroom','class.classroom_id','=','classroom.classroom_id')
+                ->join('requests','class.class_id','=','requests.class_id')   
+                ->where('requests.request_id',$request_id)
+                ->select('class.*','classroom.*','requests.*')
+                ->first();
+
+
+        $data = array();
+        if( $class->class_time != $class->req_class_time){
+            $data['active_id'] = -1;
+        }else{
+            $data['active_id'] = -2;
+        }
+        DB::table('requests')
+            ->where('request_id',$request_id)
+            ->update($data);
+        return Redirect::to('/admin/changeRequests');
     }
 }

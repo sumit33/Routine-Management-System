@@ -34,7 +34,9 @@
 
 
                         </div>
-                        <?php $request = DB::table('requests')->count();?>     
+                        <?php $request = DB::table('requests')
+            ->where('active_id',0)
+            ->count();?>   
  <div class="col-sm-2 pull-right">
  <a href="{{URL::to('/admin/changeRequests')}}">
                   <p class="rect-right">
@@ -59,7 +61,7 @@
 
         <div class="col-sm-3">
            <ul class="cat-left">
-                  <a class="button1" href="dashboard.html"><li class="first">Dashboard</li></a>
+                  <a class="button1" href="{{URL::to('/admin/dashboard')}}"><li class="first">Dashboard</li></a>
              <a class="button1" href="myroutine.html"> <li class="second">Routine</li></a>
              <a class="button1" href="{{URL::to('/admin/allcourse')}}"> <li class="third">Courses</li></a>
                   <a class="button1" href="{{URL::to('/admin/allteachers')}}">
@@ -102,7 +104,7 @@ color: #fff">View Changes</p></a>
                              </div>
                              
                            <div class="col-sm-2 pull-right">
-                      <a href="#"><p class="export btn2" style="margin-top: 0px;background: #F32828;margin-left: 45px;
+                      <a href="{{URL::to('/admin/reject_req/'.$class->request_id)}}"><p class="export btn2" style="margin-top: 0px;background: #F32828;margin-left: 45px;
     float: left;
 
 color: #fff">Reject</p></a>
@@ -112,7 +114,7 @@ color: #fff">Reject</p></a>
                              
                         
                          <div class="col-sm-2 pull-right">
-                      <a href="#"><p class="export btn2 cancel" style="    margin-top: 0px;
+                      <a href="{{URL::to('/admin/accept_req/'.$class->request_id)}}"><p class="export btn2 cancel" style="    margin-top: 0px;
     background: #34D993;
     color: #fff;
     float: left;
@@ -134,7 +136,7 @@ color: #fff">Reject</p></a>
 
                         <div class="box11">
                         <div class="col-sm-5">
-                            <p class="active1" style="text-align: left">Shifted :: {{$request->course_code}} on {{$classroom->classroom_name}}</p>
+                            <p class="active1" style="text-align: left">Shifted :: {{$class->course_code}} on {{$classroom->classroom_name}}</p>
                               <p class="ict-gallery "style="text-align: left">No conflict</p>
                         </div>
                         
@@ -146,7 +148,7 @@ color: #fff">View Changes</p></a>
                              </div>
                              
                            <div class="col-sm-2 pull-right">
-                      <a href="#"><p class="export btn2" style="margin-top: 0px;background: #F32828;margin-left: 45px;
+                      <a href="{{URL::to('/admin/reject_req/'.$class->request_id)}}"><p class="export btn2" style="margin-top: 0px;background: #F32828;margin-left: 45px;
     float: left;
 
 color: #fff">Reject</p></a>
@@ -156,7 +158,7 @@ color: #fff">Reject</p></a>
                              
                         
                          <div class="col-sm-2 pull-right">
-                      <a href="#"><p class="export btn2 cancel" style="    margin-top: 0px;
+                      <a href="{{URL::to('/admin/accept_req/'.$class->request_id)}}"><p class="export btn2 cancel" style="    margin-top: 0px;
     background: #34D993;
     color: #fff;
     float: left;

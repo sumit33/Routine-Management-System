@@ -87,7 +87,7 @@
                 <div class="col-sm-12">
                 <?php foreach($requests as $request) { ?>
                    
-                    <?php if($request->class_time!=$request->req_class_time) { ?>
+                    <?php if($request->class_time!=$request->req_class_time ||  $request->active_id == 1) { ?>
                     <div class="box11">
                         <div class="col-sm-6">
                             <p class="active1" style="text-align: left">Reschedule :: {{$request->course_code}} on {{$request->req_class_time}}</p>
@@ -99,10 +99,16 @@ color: #fff">View Changes</p></a>
                            
                         </div>
                          <div class="col-sm-2 pull-right">
-                    <?php if($request->active_id){ ?>
+                    <?php if($request->active_id == 1){ ?>
                         <a href="#"><p class="export btn2 cancel" style="margin-top: 0px;background: #34D993;
                         ;color: #fff
                         ">Accepted</p></a>
+
+                        <?php }elseif($request->active_id == -1) { ?>
+                      <a href=""><p class="export btn2" style="margin-top: 0px;background: #F32828;
+color: #fff">Rejected</p></a>
+                           
+            
                     <?php }else{ ?>
                       <a href="#"><p class="export btn2 cancel" style="margin-top: 0px;background: #B2B2B2;color: #fff
 ">Pending</p></a>
@@ -111,7 +117,7 @@ color: #fff">View Changes</p></a>
                         </div>
                     </div>
 
-                <?php }elseif($request->classroom_id!=$request->req_classroom_id) { 
+                <?php }elseif($request->classroom_id!=$request->req_classroom_id || $request->active_id == 2) { 
                     
                     $classroom = DB::table('classroom')
                                 ->where('classroom_id',$request->req_classroom_id)
@@ -129,10 +135,13 @@ color: #fff">View Changes</p></a>
                            
                         </div>
                          <div class="col-sm-2 pull-right">
-                         <?php if($request->active_id){ ?>
+                         <?php if($request->active_id == 2){ ?>
                         <a href="#"><p class="export btn2 cancel" style="margin-top: 0px;background: #34D993;
                         ;color: #fff
                         ">Accepted</p></a>
+                        <?php }elseif($request->active_id == -2) { ?>
+                      <a href=""><p class="export btn2" style="margin-top: 0px;background: #F32828;
+color: #fff">Rejected</p></a>
                     <?php }else{ ?>
                       <a href="#"><p class="export btn2 cancel" style="margin-top: 0px;background: #B2B2B2;color: #fff
 ">Pending</p></a>

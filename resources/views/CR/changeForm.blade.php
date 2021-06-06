@@ -76,8 +76,11 @@
 
 <?php  
     $all_classroom = DB::table('classroom')
+                    ->where('classroom_id','!=',$class->classroom_id)
                     ->get();
-    //$course_id=$class->class_id;
+    $current_room = DB::table('classroom')
+                    ->where('classroom_id',$class->classroom_id)
+                    ->first();
     $course = DB::table('course')
             ->where('course.course_id',$class->course_id)
             ->first();
@@ -93,6 +96,7 @@
                         <label class="classroom" for="classroom">New Classroom</label>
 
                         <select name="req_classroom" id="cars">
+                        <option value="{{$current_room->classroom_id}}">{{$current_room->classroom_name}}</option>
                         <?php foreach($all_classroom as $classroom){ ?>
                             <option value="{{$classroom->classroom_id}}">{{$classroom->classroom_name}}</option>
                         <?php } ?>
@@ -101,7 +105,7 @@
 
                         <label class="time-opt" for="semester">New Time</label>
 
-                       <input type="time" id="time-opt" name="req_class_time">
+                       <input type="time" id="time-opt" name="req_class_time" value="{{$class->class_time}}">
                         <br><br>
                         <input type="submit" value="Submit">
                     </form>

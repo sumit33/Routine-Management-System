@@ -30,7 +30,9 @@
                  
                  </ul>
         
-            <?php $request = DB::table('requests')->count();?>     
+            <?php $request = DB::table('requests')
+            ->where('active_id',0)
+            ->count();?>     
                  
             </div>
              <div class="col-sm-2 pull-right">

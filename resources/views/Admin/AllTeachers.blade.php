@@ -31,7 +31,9 @@
                  
                  
             </div>
-            <?php $request = DB::table('requests')->count();?>     
+            <?php $request = DB::table('requests')
+            ->where('active_id',0)
+            ->count();?>   
 
               <div class="col-sm-2 pull-right">
               <a href="{{URL::to('/admin/changeRequests')}}">

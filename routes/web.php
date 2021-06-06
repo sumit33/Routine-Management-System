@@ -62,7 +62,8 @@ Route::post('/admin/save-classroom','AdminController@saveClassroom');
 Route::get('/admin/logout','TeacherController@logout');
 Route::get('/assignTeacher/{course_id}','AdminController@assign');
 Route::post('/saveAssignTeacher/{course_id}','AdminController@saveAssignTeacher');
-
+Route::get('/admin/accept_req/{request_id}','AdminController@acceptRequest');
+Route::get('/admin/reject_req/{request_id}','AdminController@rejectRequest');
 
 
 

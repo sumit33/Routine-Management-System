@@ -66,6 +66,9 @@ class TeacherController extends Controller
         DB::table('class')
         ->where('class_id',$class_id)
         ->delete();
+        DB::table('requests')
+        ->where('class_id',$class_id)
+        ->delete();
         return Redirect::to('/teacher/dashboard');
     }
 
