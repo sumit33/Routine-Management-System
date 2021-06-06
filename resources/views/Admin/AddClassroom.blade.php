@@ -67,7 +67,7 @@
                   <a class="button1" href="{{URL::to('/admin/dashboard')}}"><li class="first">Dashboard</li></a>
              <a class="button1 active" href="myroutine.html"> <li class="second">Routine</li></a>
              <a class="button1" href="{{URL::to('/admin/allcourse')}}"> <li class="third">Courses</li></a>
-                  <a class="button1" href="{{URL::to('/admin/allteachers')}}l">
+                  <a class="button1" href="{{URL::to('/admin/allteachers')}}">
                     <li class="sixth">Teachers</li>
                 </a>
                   <a class="button1 " href="{{URL::to('/admin/allclassroom')}}">

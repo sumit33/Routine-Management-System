@@ -91,7 +91,7 @@
           <table class="tb1">
              
               <tr>
-              <th  class="titlee" style="padding-right:  199px !important">Title</th>
+              <th  class="titlee" style="padding-right:  199px !important">Course Code</th>
                    
 
               <th  class="status">Status</th>
