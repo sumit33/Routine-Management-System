@@ -62,7 +62,7 @@
     <div class="col-sm-3">
             <ul class="cat-left">
                   <a class="button1" href="{{URL::to('/admin/dashboard')}}"><li class="first">Dashboard</li></a>
-             <a class="button1 " href="myroutine.html"> <li class="second">Routine</li></a>
+             <a class="button1 " href="{{URL::to('/admin/activeRoutine')}}"> <li class="second">Routine</li></a>
              <a class="button1 active" href="{{URL::to('/admin/allcourse')}}"> <li class="third">Courses</li></a>
                   <a class="button1" href="{{URL::to('/admin/allteachers')}}l">
                     <li class="sixth">Teachers</li>

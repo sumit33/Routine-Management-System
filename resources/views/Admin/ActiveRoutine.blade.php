@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="icon" href="../../images/fav.png" type="image/gif" sizes="16x16">
     <link rel="stylesheet" href="../../css/style.css">
-    <title>Add new classroom</title>
+    <title>Routine</title>
 
 </head>
 
@@ -23,33 +23,28 @@
                         </div>
 
 
-                        <div class="col-sm-2 nopad pull-right">
+                        <div class="col-sm-1 nopad pull-right">
                             <ul class="user-list">
                                 <li class="user">{{Session::get('admin_name')}}</li>
                                 <li><img class="user-img" src="../../images/Ellipse.png" /></li>
                                 <a href="{{URL::to('/admin/logout')}}"><li class="user">Logout</li></a>
-
-
                             </ul>
 
 
 
                         </div>
-                        <?php $request = DB::table('requests')
-            ->where('active_id',0)
-            ->count();?>      
-
-                        <div class="col-sm-2 pull-right">
-                        <a href="{{URL::to('/admin/changeRequests')}}">
-                  <p class="rect-right">
+                    <?php $request = DB::table('requests')
+                        ->where('active_id',0)
+                        ->count();?>
+<div class="col-sm-3 pull-right">
+              <p class="rect-right">
                   Change Requests<span class="twell">{{$request}}</span>
                  </p>
-        </a>
+        
                  
                  
             </div>
-
-                        
+                       
                     </div>
 
                 </div>
@@ -62,7 +57,7 @@
     <div class="main-section">
 
 
-        <div class="col-sm-3">
+    <div class="col-sm-3">
             <ul class="cat-left">
                   <a class="button1" href="{{URL::to('/admin/dashboard')}}"><li class="first">Dashboard</li></a>
              <a class="button1 active" href="{{URL::to('/admin/activeRoutine')}}"> <li class="second">Routine</li></a>
@@ -81,38 +76,60 @@
 
         <div class="col-sm-9">
             <div class="white-section nobg">
-                <div class="col-sm-8">
-                    <p class="addnewcourse">Add new Classroom</p>
-                    <form action="{{url('/admin/save-classroom')}}" method="post">
-                        {{ csrf_field()}}
-                        <label class="lblsem" for="name">Name</label>
+               
+                <div class="col-sm-6">
 
-                       <input type="text" id="name" name="classroom_name" placeholder="Room Name"> 
-                        
-                        <label class="lblsem" for="capacity">Capacity</label>
-                       <input type="text" id="capacity" name="capacity" placeholder="Room Capacity">
-                        
-                        
-
-                        <label class="lblsem" for="type">Type</label>
-
-                        <select name="classroom_type" id="cars">
-                              <option value="Lab">Lab</option>
-                            <option value="Theory">Theory</option>
-                          
-
-                        </select>
-                        <br><br>
-                        <input type="submit" value="Save">
-                    </form>
+                    <p class="addnewcourse">Active Routine</p>
 
                 </div>
+                <div class="col-sm-4 pull-right">
+
+                    <a href="createnewroutine.html"><p class="Add a new course">Create new Routine</p></a>
+
+                </div>
+
+            <?php 
+                $semesters = DB::table('semester')->get(); 
+            
+            ?>
+                
+            <?php foreach($semesters as $semester) { ?>
+                <?php $course = DB::table('course')
+                                ->where('sem_id',$semester->sem_id)
+                                ->count(); ?>
+                <div class="col-sm-12">
+                    <div class="box11">
+                       
+                        <div class="col-sm-3">
+                            <p class="coursecode" style="text-align: left">Semester {{$semester->semester}}</p>
+                            <p class="ict-gallery "style="text-align: left">{{$course}} courses</p>
+                           
+                        </div>
+ 
+                       
+                        <div class="col-sm-3 pull-right">
+                            <a href="{{URL::to('/admin/seeRoutine/'.$semester->sem_id)}}"><p class="export btn2" style="margin-top: 0px">See Routine</p></a>
+                           </div>
+                        <div class="col-sm-3 pull-right">
+                            <p class="last-updated " style="text-align: right">Last Updated 2 days ago</p>
+                           </div> 
+                    </div>
+
+                </div>
+              
+            <?php } ?>
+
+                </div>
+
+
+
             </div>
 
 
-        </div>
-    </div>
+        
+    
 
+    </div>
 </body>
 
 </html>

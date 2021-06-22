@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="icon" href="{{asset('images/fav.png')}}" type="image/gif" sizes="16x16">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
-    <title>Student Dashboard</title>
+    <title>Routine</title>
 
 </head>
 
@@ -25,7 +25,7 @@
 
                         <div class="col-sm-1 nopad pull-right">
                             <ul class="user-list">
-                                <li class="user">{{Session::get('name')}}</li>
+                                <li class="user">{{Session::get('admin_name')}}</li>
                                 <li><img class="user-img" src="{{asset('images/Ellipse.png')}}" /></li>
                                 <a href="{{URL::to('/student/logout')}}"><li class="user">Logout</li></a>
                             </ul>
@@ -45,10 +45,7 @@
     </div>
 
     <div class="main-section">
-    <?php $student_id = Session::get('student_id');
-          $active_id = Session::get('active_id');
-          $sem_id = Session::get('sem_id');
-    ?>
+
         <div class="col-sm-3">
             <ul class="cat-left">
                 <a class="button1" href="{{URL::to('/student/dashboard')}}">

@@ -10,12 +10,23 @@ use Illuminate\Support\Facades\Redirect;
 use App\Student;
 use App\StudentHasCourse;
 use App\Courses;
+use Carbon\Carbon;
 session_start();
 
 class StudentController extends Controller
 {
     public function login()
     {
+        // $day = Carbon::now()->format('l');
+        // DB::table('requests')
+        //         ->join('class','requests.class_id','=','class.class_id')
+        //         ->where('class.class_day','!=',$day)
+        //         ->select('requests.*')
+        //         ->get();
+        // $id = DB::table('requests')
+        // ->where('class_id','!=',$class->class_id)
+        // ->get();
+        //return $class;  
         return view('Students.studentLogin');
     }
     public function loginPost(Request $request)
@@ -34,6 +45,7 @@ class StudentController extends Controller
             Session::put('name',$result1->student_name);
             Session::put('student_id',$result1->student_id);
             Session::put('active_id',$result1->active_id);
+            Session::put('sem_id',$result1->sem_id);
             return Redirect::to('/student/dashboard');               
         }
         else{
@@ -50,6 +62,7 @@ class StudentController extends Controller
     }
     public function studentDashboard()
     {
+         $day = Carbon::now()->format('l');
         $student_id = Session::get('student_id');
         $classes = DB::table('class')
                 ->join('student_has_course','class.course_id','=','student_has_course.course_id')
@@ -57,9 +70,17 @@ class StudentController extends Controller
                 ->join('classroom','class.classroom_id','=','classroom.classroom_id')
                 ->select('student_has_course.*','class.*','course.course_code','classroom.classroom_name')
                 ->where('student_has_course.student_id',$student_id)
+                ->where('class.class_day',$day)
                 ->get();
-                //return $classes;
+
         return view('Students.student-dashboard')->with('classes',$classes);
+
+        // $class = DB::table('class')
+        //         ->where('class_id',7)
+        //         ->select('class_time')
+        //         ->get();
+        // $class = Carbon::parse($class->class_time)->format('H');
+        // return $class;
     }
 
     public function allcourses($student_id)

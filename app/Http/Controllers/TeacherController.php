@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Student;
 use App\StudentHasCourse;
 use App\Courses;
+use Carbon\Carbon;
 session_start();
 
 class TeacherController extends Controller
@@ -43,12 +44,14 @@ class TeacherController extends Controller
 
     function teacherDashboard()
     {
+        $day = Carbon::now()->format('l');
         $teacher_id = Session::get('teacher_id');
         $classes = DB::table('course')
                     ->join('class','course.course_id','=','class.course_id')
                     ->join('teacher','course.teacher_id','=','teacher.teacher_id')
                     ->join('classroom','class.classroom_id','=','classroom.classroom_id')
                     ->where('course.teacher_id',$teacher_id)
+                    ->where('class.class_day',$day)
                     ->select('class.*','course.*','classroom.classroom_name')
                     ->get();
         return view('Teacher.teacher-dashboard')->with('classes',$classes);

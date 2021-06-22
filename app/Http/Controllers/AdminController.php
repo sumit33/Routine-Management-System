@@ -166,4 +166,28 @@ class AdminController extends Controller
             ->update($data);
         return Redirect::to('/admin/changeRequests');
     }
+
+    function createClass()
+    {
+        return view('createClass');
+    }
+    function saveClass(Request $request)
+    {
+        $data = array();
+        $data['course_id']=$request->course_id;
+        $data['classroom_id']=$request->classroom_id;
+        $data['class_day']=$request->class_day;
+        $data['class_time']=$request->class_time;
+        $data['class_duration']=$request->class_duration;
+        DB::table('class')->insert($data);
+        return Redirect::to('/createClass');
+    }
+    function activeRoutine()
+    {
+        return view('Admin.ActiveRoutine');
+    }
+    function SeeRoutine($sem_id)
+    {
+        return view('Admin.AdminRoutine')->with('sem_id',$sem_id);
+    }
 }

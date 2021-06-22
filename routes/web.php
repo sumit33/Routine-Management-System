@@ -1,5 +1,5 @@
 <?php
-
+use Carbon\Carbon;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +14,9 @@
 // Route::get('/student/dashboard', function () {
 //     return view('Students.dashboard');
 // });
+Route::get('/createClass','AdminController@createClass');
+Route::post('/saveClass','AdminController@saveClass');
+///Student
 Route::post('/addCourseInStudentDashboard','StudentController@addCourseInStudentDashboard');
 Route::get('/student/login','StudentController@login');
 Route::post('/student/student-login','StudentController@loginPost');
@@ -64,6 +67,12 @@ Route::get('/assignTeacher/{course_id}','AdminController@assign');
 Route::post('/saveAssignTeacher/{course_id}','AdminController@saveAssignTeacher');
 Route::get('/admin/accept_req/{request_id}','AdminController@acceptRequest');
 Route::get('/admin/reject_req/{request_id}','AdminController@rejectRequest');
+Route::get('/admin/activeRoutine','AdminController@activeRoutine');
+Route::get('/admin/seeRoutine/{sem_id}','AdminController@SeeRoutine');
 
 
 
+Route::get('/time', function () {
+       $dt = Carbon::now()->format('H');
+        echo $dt;
+ });

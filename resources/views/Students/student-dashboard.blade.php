@@ -97,7 +97,17 @@
 <div class="col-sm-12">
     <div class="box11">
         <div class="col-sm-2">
-            <p class="active1">{{$class->class_time}}</p>   
+        <?php 
+            $time = Carbon\Carbon::createFromFormat('H:i:s', $class->class_time)->format('H:i');
+            // $timestemp = "12:00:00";
+            // $range = Carbon\Carbon::createFromFormat('H:i', $timestemp)->day;
+            // if($time > $range){
+            //     $time+="PM";
+            // }else{
+            //     $time+="AM";
+            // }
+        ?>
+            <p class="active1">{{ $time}}</p>   
         </div>
         <div class="col-sm-3">
             <p class="coursecode">{{$class->course_code}}</p>
