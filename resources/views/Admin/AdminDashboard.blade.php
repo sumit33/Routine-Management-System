@@ -81,13 +81,13 @@
               </div>
               </div>
               
-              <a href="">
+              <a href="{{URL::to('/admin/activeRoutine')}}">
               <div class="col-sm-4">
                   <div class="box1">
                   
-                 
+              <?php $routine = DB::table('semester')->count(); ?>  
               <p class="Activ">Active Routines</p>
-              <p class="four ">4</p>
+              <p class="four ">{{$routine}}</p>
               <p class="see">See All</p>
               </div>
 

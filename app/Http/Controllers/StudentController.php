@@ -27,6 +27,10 @@ class StudentController extends Controller
         // ->where('class_id','!=',$class->class_id)
         // ->get();
         //return $class;  
+        $id = Session::get('student_id');
+        if($id){
+            return $this->studentDashboard();
+        }
         return view('Students.studentLogin');
     }
     public function loginPost(Request $request)
@@ -62,6 +66,7 @@ class StudentController extends Controller
     }
     public function studentDashboard()
     {
+        $this->StudentAuthCheck();
          $day = Carbon::now()->format('l');
         $student_id = Session::get('student_id');
         $classes = DB::table('class')
@@ -170,6 +175,19 @@ class StudentController extends Controller
 
     public function showRoutine(){
         return view('Students.Routine');
+    }
+
+    public function StudentAuthCheck()
+    {
+        
+        $student_id=Session::get('student_id');
+        if ($student_id) {
+            return ;
+        }
+        else
+        {
+            return Redirect::to('/student/login')->send();
+        }
     }
 
 }

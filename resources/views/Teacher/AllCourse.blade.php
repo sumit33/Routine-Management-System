@@ -52,7 +52,7 @@
                 <a class="button1" href="{{URL::to('/teacher/dashboard')}}">
                     <li class="first">Dashboard</li>
                 </a>
-                <a class="button1" href="myroutine.html">
+                <a class="button1" href="{{URL::to('/teacher/routine')}}">
                     <li class="second">My Routine</li>
                 </a>
                 <a class="button1 active" href="{{URL::to('/teacher/courses/'.$teacher_id)}}">

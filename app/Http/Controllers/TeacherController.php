@@ -10,12 +10,21 @@ use Illuminate\Support\Facades\Redirect;
 use App\Student;
 use App\StudentHasCourse;
 use App\Courses;
+use App\Console\Controllers\AdminController;
 use Carbon\Carbon;
 session_start();
 
 class TeacherController extends Controller
 {
     function login(){
+        $id = Session::get('teacher_id');
+        $id1 = Session::get('admin_id');
+        if($id){
+            return $this->teacherDashboard();
+        }
+        else if($id1){
+            return Redirect::to('/admin/dashboard');
+        }
         return view('Teacher.login');
     }
 
@@ -44,6 +53,7 @@ class TeacherController extends Controller
 
     function teacherDashboard()
     {
+        $this->AdminAuthCheck();
         $day = Carbon::now()->format('l');
         $teacher_id = Session::get('teacher_id');
         $classes = DB::table('course')
@@ -59,6 +69,7 @@ class TeacherController extends Controller
 
     function allcourses($teacher_id)
     {
+        $this->AdminAuthCheck();
         $courses = DB::table('course')
                 ->where('teacher_id',$teacher_id)
                 ->get();
@@ -66,6 +77,7 @@ class TeacherController extends Controller
     }
     function cancelClass($class_id)
     {
+        $this->AdminAuthCheck();
         DB::table('class')
         ->where('class_id',$class_id)
         ->delete();
@@ -77,6 +89,7 @@ class TeacherController extends Controller
 
     function changeForm($class_id)
     {
+        $this->AdminAuthCheck();
         $class = DB::table('class')
                 ->where('class.class_id',$class_id)
                 ->select('class.*')
@@ -86,6 +99,7 @@ class TeacherController extends Controller
 
     function changeRequest($teacher_id)
     {
+        $this->AdminAuthCheck();
         $classes = DB::table('class')
                 ->join('course','class.course_id','=','course.course_id')
                 ->join('classroom','class.classroom_id','=','classroom.classroom_id')
@@ -102,6 +116,21 @@ class TeacherController extends Controller
     {
     	Session::flush();
     	return Redirect::to('/teacher/login');
+    }
+
+    public function AdminAuthCheck()
+    {   
+        $teacher_id=Session::get('teacher_id');
+        if ($teacher_id) {
+            return ;
+        }
+        else
+        {
+            return Redirect::to('/teacher/login')->send();
+        }
+    }
+    public function showRoutine(){
+        return view('Teacher.Routine');
     }
 
 }

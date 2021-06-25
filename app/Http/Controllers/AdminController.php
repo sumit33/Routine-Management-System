@@ -27,18 +27,20 @@ class AdminController extends Controller
             //return $result;
         }
         else{
-            //return Redirect::to('/teacher/login');
-            return $result;
+            return Redirect::to('/teacher/login');
+            //return $result;
         }
     }
 
-    function AdminDashboard()
+    public function AdminDashboard()
     {
+        $this->AdminAuthCheck();
         return view('Admin.AdminDashboard');
     }
 
     public function changeRequests()
     {
+        $this->AdminAuthCheck();
         $classes = DB::table('class')
                 ->join('course','class.course_id','=','course.course_id')
                 ->join('classroom','class.classroom_id','=','classroom.classroom_id')
@@ -51,15 +53,18 @@ class AdminController extends Controller
 
     function allCourse()
     {
+        $this->AdminAuthCheck();
         return view('Admin.allCourse');
     }
     function addCourse()
     {
+        $this->AdminAuthCheck();
         return view('Admin.addNewCourse');
     }
 
     function saveCourse(Request $request)
     {
+        $this->AdminAuthCheck();
         $data = array();
         $data['course_title'] = $request->title;
         $data['course_code'] = $request->course_code;
@@ -72,19 +77,23 @@ class AdminController extends Controller
 
     function allTeachers()
     {
+        $this->AdminAuthCheck();
         return view('Admin.AllTeachers');
     }
     
     function allClassroom()
     {
+        $this->AdminAuthCheck();
         return view('Admin.AllClassroom');
     }
     function addClassroom()
     {
+        $this->AdminAuthCheck();
         return view('Admin.AddClassroom');
     }
     function saveClassroom(Request $request)
     {
+        $this->AdminAuthCheck();
         $data = array();
         $data['classroom_name'] = $request->classroom_name;
         $data['capacity'] = $request->capacity;
@@ -95,6 +104,7 @@ class AdminController extends Controller
 
     function assign($course_id)
     {
+        $this->AdminAuthCheck();
         $course = DB::table('course')
                     ->where('course_id',$course_id)
                     ->first();
@@ -103,6 +113,7 @@ class AdminController extends Controller
 
     function saveAssignTeacher(Request $request,$course_id)
     {
+        $this->AdminAuthCheck();
         $data = array();
         $data['teacher_id'] = $request->teacher_id;
         DB::table('course')
@@ -113,6 +124,7 @@ class AdminController extends Controller
 
     function acceptRequest($request_id)
     {
+        $this->AdminAuthCheck();
 
         $class = DB::table('class')
                 ->join('classroom','class.classroom_id','=','classroom.classroom_id')
@@ -147,6 +159,7 @@ class AdminController extends Controller
 
     function rejectRequest($request_id)
     {
+        $this->AdminAuthCheck();
         $class = DB::table('class')
                 ->join('classroom','class.classroom_id','=','classroom.classroom_id')
                 ->join('requests','class.class_id','=','requests.class_id')   
@@ -184,10 +197,24 @@ class AdminController extends Controller
     }
     function activeRoutine()
     {
+        $this->AdminAuthCheck();
         return view('Admin.ActiveRoutine');
     }
     function SeeRoutine($sem_id)
     {
+        $this->AdminAuthCheck();
         return view('Admin.AdminRoutine')->with('sem_id',$sem_id);
+    }
+    public function AdminAuthCheck()
+    {
+        
+        $admin_id=Session::get('admin_id');
+        if ($admin_id) {
+            return ;
+        }
+        else
+        {
+            return Redirect::to('/teacher/login')->send();
+        }
     }
 }

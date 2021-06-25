@@ -50,6 +50,7 @@ Route::get('/cancelClass/{class_id}','TeacherController@cancelClass');
 Route::get('/teacher/change-form/{class_id}','TeacherController@changeForm');
 Route::get('/teacher/changeRequest/{teacher_id}','TeacherController@changeRequest');
 Route::get('/teacher/logout','TeacherController@logout');
+Route::get('/teacher/routine','TeacherController@showRoutine');
 
 //Admin
 Route::get('/admin/admin-login','AdminController@loginPost');
