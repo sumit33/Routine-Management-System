@@ -88,10 +88,24 @@
                 <?php foreach($requests as $request) { ?>
                    
                     <?php if($request->class_time!=$request->req_class_time ||  $request->active_id == 1) { ?>
+                        <?php 
+                        $day = Carbon\Carbon::now()->format('l');
+                        $conflict = DB::table('class')
+                                    ->where('class_day',$day)
+                                    ->where('class_time',$request->req_class_time)
+                                    ->where('classroom_id',$request->req_classroom_id)
+                                    ->count();
+                    
+                    ?>
                     <div class="box11">
                         <div class="col-sm-6">
                             <p class="active1" style="text-align: left">Reschedule :: {{$request->course_code}} on {{$request->req_class_time}}</p>
-                              <p class="ict-gallery "style="text-align: left">No conflict</p>
+                            <?php if($conflict){ ?>
+                              <p class="ict-gallery "style="text-align: left;color: #F32828;
+">Has conflict</p>
+                              <?php }else{ ?>
+                                <p class="ict-gallery "style="text-align: left">No conflict</p>
+                              <?php } ?>
                         </div>
                          <div class="col-sm-3 pull-right">
                       <a href="#"><p class="export btn2" style="margin-top: 0px;background: #46BAD3;
@@ -124,10 +138,24 @@ color: #fff">Rejected</p></a>
                                 ->select('classroom.classroom_name')
                                 ->first();
                     ?>
+                    <?php 
+                        $day = Carbon\Carbon::now()->format('l');
+                        $conflict = DB::table('class')
+                                    ->where('class_day',$day)
+                                    ->where('classroom_id',$request->req_classroom_id)
+                                    ->where('class_time',$request->req_class_time)
+                                    ->count();
+                    
+                    ?>
                             <div class="box11">
                         <div class="col-sm-6">
                             <p class="active1" style="text-align: left">Shifted :: {{$request->course_code}} on {{$classroom->classroom_name}}</p>
-                              <p class="ict-gallery "style="text-align: left">No conflict</p>
+                            <?php if($conflict){ ?>
+                              <p class="ict-gallery "style="text-align: left;color: #F32828;
+">Has conflict</p>
+                              <?php }else{ ?>
+                                <p class="ict-gallery "style="text-align: left">No conflict</p>
+                              <?php } ?>
                         </div>
                          <div class="col-sm-3 pull-right">
                       <a href="#"><p class="export btn2" style="margin-top: 0px;background: #46BAD3;

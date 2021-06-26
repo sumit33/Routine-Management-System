@@ -27,10 +27,10 @@ class StudentController extends Controller
         // ->where('class_id','!=',$class->class_id)
         // ->get();
         //return $class;  
-        // $id = Session::get('student_id');
-        // if($id){
-        //     return $this->studentDashboard();
-        // }
+        $id = Session::get('student_id');
+        if($id){
+            return $this->studentDashboard();
+        }
          return view('Students.studentLogin');
     }
     public function loginPost(Request $request)
