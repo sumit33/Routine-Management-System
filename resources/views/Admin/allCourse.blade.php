@@ -109,7 +109,7 @@
                
                   <td>{{$course->course_type}}</td> 
                   <td>{{$course->credit}}</td>
-                  <td class="delete-btn1"><a href="{{URL::to('/assignTeacher/'.$course_id)}}"><p>Assign</p></a> <a href=""><p>Edit</p></a></td>
+                  <td class="delete-btn1"><a href="{{URL::to('/assignTeacher/'.$course_id)}}"><p>Assign</p></a></td>
               
               </tr>
              <?php } ?>

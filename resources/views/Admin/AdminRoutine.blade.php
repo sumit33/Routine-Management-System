@@ -46,28 +46,18 @@
 
     <div class="main-section">
 
-        <div class="col-sm-3">
-            <ul class="cat-left">
-                <a class="button1" href="{{URL::to('/student/dashboard')}}">
-                    <li class="first">Dashboard</li>
-                </a>
-                <a class="button1 active" href="myroutine.html">
-                    <li class="second">My Routine</li>
-                </a>
-                <a class="button1" href="{{URL::to('/student/courses/'.$student_id)}}">
-                    <li class="third">My courses</li>
-                </a>
-                <?php if($active_id) { ?>
-                    <a class="button1" href="{{URL::to('/changeRequest/'.$student_id)}}">
-                    <li class="fourth">Change requests</li>
-                </a>
-                <?php } ?>
-                
-            </ul>
-
-
-
-        </div>
+    <div class="col-sm-3">
+              <ul class="cat-left">
+              <a class="button1 active" href="{{URL::to('/admin/dashboard')}}"><li class="first">Dashboard</li></a>
+             <a class="button1" href="{{URL::to('/admin/activeRoutine')}}"> <li class="second">Routine</li></a>
+             <a class="button1" href="{{URL::to('/admin/allcourse')}}"> <li class="third">courses</li></a>
+             <a class="button1" href="{{URL::to('/admin/allteachers')}}"> <li class="sixth">Teachers</li></a>
+             <a class="button1" href="{{URL::to('/admin/allclassroom')}}"> <li class="fifth">Classrooms</li></a>
+              </ul>
+              
+              
+          
+          </div>
 
 
 
@@ -76,9 +66,7 @@
               <div class="col-sm-6">
               <p class="mycourses">My Routine</p>
               </div>
-              <div class="col-sm-6 pull-right">
-              <a href="#"><p class="export">Export</p></a>
-              </div>
+              
 
 <!--            table starts-->
                    <div class="col-sm-12">

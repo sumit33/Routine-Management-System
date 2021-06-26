@@ -113,7 +113,7 @@
               <th  class="type">Type</th>
             
               <th class="type">Capacity</th>
-              <th class="type">Action</th>
+              <!-- <th class="type">Action</th> -->
               </tr>
             <?php $classrooms = DB::table('classroom')->get(); $i=1;?> 
             <?php foreach($classrooms as $classroom) { ?>
@@ -123,7 +123,7 @@
                   <td>Active</td>
                   <td>{{$classroom->classroom_type}}</td>
                   <td>{{$classroom->capacity}}</td>
-                  <td class="delete-btn btnn2"><p>Edit</p></td>
+                  <!-- <td class="delete-btn btnn2"><p>Edit</p></td> -->
               
               </tr>
               <?php } ?>

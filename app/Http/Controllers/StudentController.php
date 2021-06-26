@@ -17,21 +17,21 @@ class StudentController extends Controller
 {
     public function login()
     {
-        // $day = Carbon::now()->format('l');
-        // DB::table('requests')
-        //         ->join('class','requests.class_id','=','class.class_id')
-        //         ->where('class.class_day','!=',$day)
-        //         ->select('requests.*')
-        //         ->get();
+        $day = Carbon::now()->format('l');
+        $class = DB::table('requests')
+                ->join('class','requests.class_id','=','class.class_id')
+                ->where('class.class_day','!=',$day)
+                ->select('requests.*')
+                ->delete();
         // $id = DB::table('requests')
         // ->where('class_id','!=',$class->class_id)
         // ->get();
         //return $class;  
-        $id = Session::get('student_id');
-        if($id){
-            return $this->studentDashboard();
-        }
-        return view('Students.studentLogin');
+        // $id = Session::get('student_id');
+        // if($id){
+        //     return $this->studentDashboard();
+        // }
+         return view('Students.studentLogin');
     }
     public function loginPost(Request $request)
     {
@@ -90,7 +90,7 @@ class StudentController extends Controller
 
     public function allcourses($student_id)
     {
-        
+        $this->StudentAuthCheck();
         $courses = DB::table('student_has_course')
             ->join('course','student_has_course.course_id','=','course.course_id')
             ->select('student_has_course.course_id','course.*')
@@ -108,6 +108,7 @@ class StudentController extends Controller
 
     public function AddNewCourse($student_id)
     {
+        $this->StudentAuthCheck();
         return view('Students.AddNewCourse');
     }
     public function GetCourseID($id){
@@ -118,6 +119,7 @@ class StudentController extends Controller
 
     public function addCourseInStudentDashboard(Request $request)
     {
+        $this->StudentAuthCheck();
         $id = Session::get('student_id');
         $abc = Student::find($id);
         $abc->courses()->sync($request->courses,false);
@@ -127,6 +129,7 @@ class StudentController extends Controller
 
     public function deleteCourse($course_id)
     {
+        $this->StudentAuthCheck();
         $id = Session::get('student_id');
         DB::table('student_has_course')
             ->where('student_has_course.student_id',$id)
@@ -137,6 +140,7 @@ class StudentController extends Controller
 
     public function changeForm($class_id)
     {
+        $this->StudentAuthCheck();
         $class = DB::table('class')
                 ->where('class.class_id',$class_id)
                 ->select('class.*')
@@ -146,6 +150,7 @@ class StudentController extends Controller
 
     public function saveRequest(Request $request,$class_id)
     {
+        $this->StudentAuthCheck();
         DB::table('requests')
             ->where('requests.class_id',$class_id)
             ->delete();
@@ -161,6 +166,7 @@ class StudentController extends Controller
 
     public function changeRequest($student_id)
     {
+        $this->StudentAuthCheck();
         $classes = DB::table('class')
                 ->join('student_has_course','class.course_id','=','student_has_course.course_id')
                 ->join('course','class.course_id','=','course.course_id')
@@ -174,6 +180,7 @@ class StudentController extends Controller
     }
 
     public function showRoutine(){
+        $this->StudentAuthCheck();
         return view('Students.Routine');
     }
 

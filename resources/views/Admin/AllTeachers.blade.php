@@ -105,7 +105,7 @@
 
               <th  class="status">Email</th>
               
-              <th class="type">Action</th>
+              <!-- <th class="type">Action</th> -->
               <th class="type"></th>
               <th class="type"></th>
               <th class="type"></th>
@@ -122,7 +122,7 @@
                   <td>{{$teacher->teacher_email}}</td>
                   
                   
-                  <td colspan="5" class="delete-btn btnn2"><p>Class Schedule</p></td>
+                  <!-- <td colspan="5" class="delete-btn btnn2"><a href=""><p>Class Schedule</p></a></td> -->
               
               </tr>
               <?php } ?>

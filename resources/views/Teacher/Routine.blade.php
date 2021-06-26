@@ -45,10 +45,6 @@
     </div>
 
     <div class="main-section">
-    <?php $student_id = Session::get('student_id');
-          $active_id = Session::get('active_id');
-          $sem_id = Session::get('sem_id');
-    ?>
         <?php $teacher_id=Session::get('teacher_id'); ?>
         <div class="col-sm-3">
             <ul class="cat-left">

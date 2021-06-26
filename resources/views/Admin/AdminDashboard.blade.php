@@ -107,7 +107,7 @@
                </div>
                </a>
 
-               <a href="">
+               <a href="{{URL::to('/admin/allclassroom')}}">
               <div class="col-sm-4">
                   <div class="box1">
                   

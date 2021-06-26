@@ -16,6 +16,11 @@ use Carbon\Carbon;
 // });
 Route::get('/createClass','AdminController@createClass');
 Route::post('/saveClass','AdminController@saveClass');
+Route::get('/createStudent','AdminController@createStudent');
+Route::post('/saveStudent','AdminController@saveStudent');
+Route::get('/createTeacher','AdminController@createTeacher');
+Route::post('/saveTeacher','AdminController@saveTeacher');
+
 ///Student
 Route::post('/addCourseInStudentDashboard','StudentController@addCourseInStudentDashboard');
 Route::get('/student/login','StudentController@login');

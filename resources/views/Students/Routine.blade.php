@@ -79,9 +79,7 @@
               <div class="col-sm-6">
               <p class="mycourses">My Routine</p>
               </div>
-              <div class="col-sm-6 pull-right">
-              <a href="#"><p class="export">Export</p></a>
-              </div>
+
 
 <!--            table starts-->
                    <div class="col-sm-12">

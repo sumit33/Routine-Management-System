@@ -217,4 +217,40 @@ class AdminController extends Controller
             return Redirect::to('/teacher/login')->send();
         }
     }
+
+    function createStudent()
+    {
+        return view('createStudent');
+    }
+
+    function saveStudent(Request $request)
+    {
+        $data = array();
+        $data['student_reg'] = $request->student_reg;
+        $data['password'] = $request->student_password;
+        $data['student_name'] = $request->student_name;
+        $data['sem_id'] = $request->semester;
+        $data['active_id'] = $request->type;
+
+        DB::table('student')->insert($data);
+        return Redirect::to('/createStudent');
+
+    }
+
+    function createTeacher()
+    {
+        return view('createTeacher');
+    }
+
+    function saveTeacher(Request $request)
+    {
+        $data = array();
+        $data['teacher_email'] = $request->teacher_email;
+        $data['teacher_password'] = $request->teacher_password;
+        $data['teacher_name'] = $request->teacher_name;
+        $data['admin'] = $request->type;
+
+        DB::table('teacher')->insert($data);
+        return Redirect::to('/createTeacher');
+    }
 }

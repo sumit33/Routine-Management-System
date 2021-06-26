@@ -17,6 +17,13 @@ session_start();
 class TeacherController extends Controller
 {
     function login(){
+
+        $day = Carbon::now()->format('l');
+        $class = DB::table('requests')
+                ->join('class','requests.class_id','=','class.class_id')
+                ->where('class.class_day','!=',$day)
+                ->select('requests.*')
+                ->delete();
         $id = Session::get('teacher_id');
         $id1 = Session::get('admin_id');
         if($id){
